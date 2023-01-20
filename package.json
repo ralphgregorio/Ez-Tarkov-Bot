@@ -7,7 +7,10 @@
   },
   "scripts": {
     "compile": "graphql-codegen",
-    "watch": "graphql-codegen -w"
+    "watch": "graphql-codegen -w",
+    "build": "tsc",
+    "start": "node ./bin/app.js",
+    "dev": "ts-node ./src/app.ts"
   },
   "dependencies": {
     "@types/node": "^18.11.18",
