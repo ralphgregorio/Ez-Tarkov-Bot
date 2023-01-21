@@ -5,4 +5,5 @@ export type ItemProfitability = {
     fleaPrice: string | null | undefined;
     traderSellPrice: string | null | undefined;
     fleaToTraderProfit: string;
+    imageUrl: string | null | undefined;
 };

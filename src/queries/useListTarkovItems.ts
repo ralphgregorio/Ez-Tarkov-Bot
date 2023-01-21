@@ -9,7 +9,8 @@ export const UseListTarkovItems = async (
         query: LIST_TARKOV_ITEMS_QUERY,
         variables: {
             items: items
-        }
+        },
+        fetchPolicy: 'no-cache'
     })
     .then((result) => {return result.data?.items});
 };
