@@ -4,7 +4,7 @@ import { Item } from '../__generated__/graphql';
 
 export const UseListTarkovItems = async (
     items = [] 
-) => {
+): Promise<Array<Item>> => {
     return await apolloClient.query({
         query: LIST_TARKOV_ITEMS_QUERY,
         variables: {

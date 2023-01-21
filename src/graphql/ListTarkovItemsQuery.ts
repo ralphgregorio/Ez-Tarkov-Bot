@@ -8,6 +8,7 @@ export const LIST_TARKOV_ITEMS_QUERY: any = gql(`
             lastLowPrice
             basePrice
             sellFor {
+                priceRUB
                 price
                 source
                 currency
