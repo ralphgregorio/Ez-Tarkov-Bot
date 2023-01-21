@@ -14,8 +14,12 @@
     "dev": "npx nodemon ./src/app.ts"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.4",
     "@types/node": "^18.11.18",
+    "cross-fetch": "^3.1.5",
     "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "fs": "^0.0.1-security",
     "graphql": "^16.6.0"
   }
 }

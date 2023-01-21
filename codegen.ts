@@ -1,7 +1,8 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
+import 'dotenv/config';
 
 const config: CodegenConfig = {
-  schema: 'https://api.tarkov.dev/graphql',
+  schema: process.env.PRODUCTION_GRAPHQL_URL,
   documents: ['src/**/*.tsx'],
   generates: {
     './src/__generated__/': {
