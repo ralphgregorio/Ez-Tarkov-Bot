@@ -5,13 +5,13 @@ import { ItemProfitability } from "../types";
 import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 
 export default new Command({
-    name: "ezmoney",
-    description: "Shows the top 5 items with the biggest flips based on their lowest average price",
+    name: "ezbarter",
+    description: "Shows the top 5 items with the biggest flips based on barter",
     run: async ({ interaction }) => {
         const items = await UseListTarkovItems();
         const profitability: ItemProfitability[] = items.map( (item: Item) => {
             const sellTo = item.sellFor?.filter((sell) => sell.source !== "fleaMarket");
-            if ( !item || !sellTo || !item.lastLowPrice || !item.sellFor) {
+            if ( !item || !sellTo || !item.basePrice || !item.sellFor) {
                 return  {
                     name: item?.name,
                     sellingSource: 'N/A',
@@ -23,13 +23,13 @@ export default new Command({
                 }
             }
             const biggestTraderSellValue = Math.max(...sellTo.map(sell => Number(sell.priceRUB)))
-            const profit = item.lastLowPrice ? biggestTraderSellValue - item.lastLowPrice: 0;
+            const profit = item.basePrice ? biggestTraderSellValue - item.basePrice: 0;
             const trader = item.sellFor.find((seller) => seller.priceRUB === biggestTraderSellValue);
             return {
                 name: item.name,
                 sellingSource: trader?.source,
                 basePrice: String(item.basePrice),
-                fleaPrice: String(item.lastLowPrice),
+                fleaPrice: String(item.avg24hPrice),
                 fleaToTraderProfit: String(profit),
                 traderSellPrice: String(biggestTraderSellValue),
                 imageUrl: item.image8xLink
@@ -48,7 +48,7 @@ export default new Command({
 			.addComponents(
 				new ButtonBuilder()
                     .setCustomId('one')
-					.setLabel(`Lowest Flea Price: ₽ ${sortedItems[counter].fleaPrice}`)
+					.setLabel(`Average Flea Price: ₽ ${sortedItems[counter].fleaPrice}`)
 					.setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
                     .setCustomId('two')
@@ -63,9 +63,9 @@ export default new Command({
             const embed = new EmbedBuilder()
                 .setColor(0x5af506)
                 .setTitle(`Item Name ${counter+1}: ${sortedItems[counter].name}`)
-                .setDescription(`Buy from Trader: ₽ ${sortedItems[counter].basePrice}`)
+                .setDescription(`Buy from Barter: ₽ ${sortedItems[counter].basePrice}`)
                 .addFields( 
-                    { name: 'Lowest Flea Price:', value: `₽ ${sortedItems[counter].fleaPrice}`},
+                    { name: 'Average Flea Price:', value: `₽ ${sortedItems[counter].fleaPrice}`},
                     { name: 'TRADER SELL Price:', value: `₽ ${sortedItems[counter].traderSellPrice}`, inline: true},
                     { 
                         name: `Potential Profit selling to Trader: ₽ ${sortedItems[counter].fleaToTraderProfit}`, 
