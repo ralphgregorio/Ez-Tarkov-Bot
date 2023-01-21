@@ -3,5 +3,6 @@ export type ItemProfitability = {
     sellingSource: string | null | undefined;
     basePrice: string | null | undefined;
     fleaPrice: string | null | undefined;
+    traderSellPrice: string | null | undefined;
     fleaToTraderProfit: string;
 };

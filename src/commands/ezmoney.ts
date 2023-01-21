@@ -16,7 +16,8 @@ export default new Command({
                     sellingSource: 'N/A',
                     basePrice: '0',
                     fleaPrice: '0',
-                    fleaToTraderProfit: '0'
+                    fleaToTraderProfit: '0',
+                    traderSellPrice: '0'
                 }
             }
             const biggestTraderSellValue = Math.max(...sellTo.map(sell => Number(sell.priceRUB)))
@@ -27,7 +28,8 @@ export default new Command({
                 sellingSource: trader?.source,
                 basePrice: String(item.basePrice),
                 fleaPrice: String(item.lastLowPrice),
-                fleaToTraderProfit: String(profit)
+                fleaToTraderProfit: String(profit),
+                traderSellPrice: String(biggestTraderSellValue)
             }
         }).filter((item) => item.fleaToTraderProfit !== 'Infinity');
 
@@ -43,6 +45,7 @@ export default new Command({
             Current Flea Price: ${sortedItems[counter].fleaPrice}
             Current Trader Price: ${sortedItems[counter].basePrice}
             Potential Profit (In Rubles) when selling to Trader: ${sortedItems[counter].fleaToTraderProfit}
+            Trader Selling Price (In Rubles): ${sortedItems[counter].traderSellPrice}
             Trader to sell to: ${sortedItems[counter].sellingSource}\n-----------`;
             counter += 1;
         }
